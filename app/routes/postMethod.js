@@ -1,23 +1,18 @@
 const config = require('../config/tv.json');
 const TV = require('../models/tv');
+const cleanQuery = require('../models/helpers').cleanQuery;
 
 module.exports = (req, res) => {
 
     const tv = TV(config.ip, config.port, config.psk);
 
-    const postData = (Object.keys(req.body).length > 0 ? req.body : req.query);
+    const postData = cleanQuery(req);
+    const protocol = req.params.protocol || 'system';
+    const version  = req.params.version || '1.0';
 
-    Object.keys(postData).map(key => {
-        if (postData[key] === 'true' || postData[key] === 'false') {
-            postData[key] = postData[key] === 'true';
-        } else {
-            postData[key] = postData[key];
-        }
-    });
-
-    tv.post(req.params.command, postData, '1.0')
+    tv.post(req.params.id, postData, version, protocol)
         .then((result) => {
-            res.json({ result: result === undefined ? true : result, request: postData });
+            res.json({ result: !result, request: postData });
         })
         .catch((error) => {
             console.log({ error, request: postData });

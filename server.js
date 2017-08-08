@@ -36,9 +36,17 @@ const POST_METHOD = require('./app/routes/postMethod');
 router.get('/discover', DISCOVER);
 router.get('/connect', CONNECT);
 router.get('/commands', COMMANDS);
+
 router.get('/command/send/:command', SEND_COMMAND);
-router.post('/command/method/:command', POST_METHOD);
+router.get('/command/send/:command/:protocol', SEND_COMMAND);
+
+router.post('/command/method/:id', POST_METHOD);
+router.post('/command/method/:id/:protocol', POST_METHOD);
+router.post('/command/method/:id/:protocol/:version', POST_METHOD);
+
 router.get('/command/method/:id', GET_METHOD);
+router.get('/command/method/:id/:protocol', GET_METHOD);
+router.get('/command/method/:id/:protocol/:version', GET_METHOD);
 
 // more routes for our API will happen here
 
