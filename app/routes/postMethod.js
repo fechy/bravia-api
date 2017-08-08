@@ -5,7 +5,11 @@ module.exports = (req, res) => {
 
     const tv = TV(config.ip, config.port, config.psk);
 
-    tv.post(req.params.command, req.body, '1.0')
+    const postData = (req.body ? req.body : req.query);
+
+    res.json({ result: postData });
+
+    tv.post(req.params.command, postData, '1.0')
         .then((result) => {
             res.json({ result: result === undefined ? true : result });
         })
