@@ -2,9 +2,10 @@
 Simple API interface for TV Bravia
 
 ## Build to use with OpenHab or simply by using your browser
-1. clone repo
-2. run: `npm install` or `yarn install`
-3. run: `node server.js`
+1. Clone repo
+2. Run: `npm install` or `yarn install`
+3. Edit `app/config/tv.json` and add your TV ip, port and password
+4. Run: `node server.js`
 
 Additionally, you can run:
 ```
